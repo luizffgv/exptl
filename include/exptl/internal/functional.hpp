@@ -1,7 +1,8 @@
 #ifndef EXPTL_INTERNAL_FUNCTIONAL_HPP
 #define EXPTL_INTERNAL_FUNCTIONAL_HPP
 
-#include <utility> // std::forward
+#include <functional> // std::invoke
+#include <utility>    // std::forward
 
 namespace exptl
 {
@@ -17,8 +18,12 @@ public:
     template <typename Fn2>
     auto operator+(Fn2 rhs) const
     {
-        auto lambda{[=, fn{fn}](auto &&...args) mutable -> decltype(auto)
-                    { return rhs(fn(std::forward<decltype(args)>(args)...)); }};
+        auto lambda{
+          [=, fn{fn}](auto &&...args) mutable -> decltype(auto)
+          {
+              return std::invoke(
+                rhs, std::invoke(fn, std::forward<decltype(args)>(args)...));
+          }};
 
         return composable<decltype(lambda)>{lambda};
     }
@@ -26,13 +31,13 @@ public:
     template <typename... Args>
     decltype(auto) operator()(Args &&...args)
     {
-        return fn(std::forward<Args>(args)...);
+        return std::invoke(fn, std::forward<Args>(args)...);
     }
 
     template <typename... Args>
     decltype(auto) operator()(Args &&...args) const
     {
-        return fn(std::forward<Args>(args)...);
+        return std::invoke(fn, std::forward<Args>(args)...);
     }
 };
 
