@@ -8,6 +8,24 @@
 namespace exptl
 {
 
+/**
+ * @defgroup algorithm algorithm
+ * @brief This header provides general algorithms to make your life easier.
+ * @{
+ */
+
+/**
+ * @brief Extracts elements from nested containers.
+ *
+ * @tparam T type of the elements to be extracted.
+ * @tparam T2 `value_type` of the output iterator
+ * @tparam In type of the input iterators
+ * @tparam Out type of the output iterator
+ *
+ * @param begin range of elements to be extracted
+ * @param end range of elements to be extracted
+ * @param out range of elements to be extracted
+ */
 template <typename T,
           typename T2 = T,
           std::input_iterator      In,
@@ -27,6 +45,16 @@ void flatten(In begin, In const end, Out out)
             flatten<T>(std::cbegin(value), std::cend(value), out);
         }
 }
+
+/** @example algorithm/hello_world.cpp
+ * This is an example of how to use the flatten() function.
+ *
+ * It outputs "Hello, World!"
+ */
+
+/**
+ * @}
+ */
 
 } // namespace exptl
 
