@@ -1,0 +1,7 @@
+-Iinclude
+-std=c++20
+-Weverything
+-Wno-c++98-compat
+-Wno-pre-c++17-compat
+-Wno-pre-c++14-compat
+-Wno-pre-c++20-compat
