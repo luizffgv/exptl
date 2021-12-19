@@ -1,0 +1,6 @@
+#ifndef EXPTL_ALGORITHM_HPP
+#define EXPTL_ALGORITHM_HPP
+
+#include <exptl/internal/algorithm.hpp>
+
+#endif // #ifndef EXPTL_ALGORITHM_HPP
