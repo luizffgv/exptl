@@ -6,4 +6,4 @@ It aims to be a natural extension to standard C++, mimicking the style of the St
 
 ## Documentation
 
-View the docs [here](https://github.com/luizffgv/exptl/wiki)
+You can generate the docs using Doxygen, but if you do not want to you can view the [wiki](https://github.com/luizffgv/exptl/wiki). Be aware that the wiki may be outdated.
