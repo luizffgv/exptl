@@ -22,9 +22,9 @@ namespace exptl
  * @tparam In type of the input iterators
  * @tparam Out type of the output iterator
  *
- * @param begin range of elements to be extracted
- * @param end range of elements to be extracted
- * @param out range of elements to be extracted
+ * @param begin Start of the range of elements to be extracted
+ * @param end End of the range of elements to be extracted
+ * @param out Output iterator to store the extracted elements
  */
 template <typename T,
           typename T2 = T,
