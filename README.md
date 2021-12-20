@@ -4,6 +4,4 @@ This is a general library that complements the C++ Standard Library with feature
 
 It aims to be a natural extension to standard C++, mimicking the style of the Standard Library.
 
-## Documentation
-
-You can generate the docs using Doxygen, but if you do not want to you can view the [wiki](https://github.com/luizffgv/exptl/wiki). Be aware that the wiki may be outdated.
+## [Documentation](https://luizffgv.github.io/exptl/)
