@@ -11,7 +11,7 @@ using std::plus;
 using std::size_t;
 using std::swap;
 
-int main(void)
+int main()
 {
     auto constexpr ref{[](auto &val) { return [&]() { return val; }; }};
     auto constexpr add{[](int &rhs)
