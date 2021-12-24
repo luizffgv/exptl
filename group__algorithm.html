@@ -137,11 +137,10 @@ template&lt;typename T , typename T2  = T, std::input_iterator In, std::output_i
 </dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="algorithm_2hello_world_8cpp-example.html#a0">algorithm/hello_world.cpp</a>.</dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_same_v&lt;T,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                 <span class="keyword">typename</span> std::iterator_traits&lt;In&gt;::value_type&gt;)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        while (begin != end)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            *out++ = *begin++;</div>
+<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_same_v&lt;T,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                 <span class="keyword">typename</span> std::iterator_traits&lt;In&gt;::value_type&gt;)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::copy(begin, end, out);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    else</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        while (begin != end)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        {</div>
