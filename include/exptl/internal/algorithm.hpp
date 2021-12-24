@@ -1,7 +1,8 @@
 #ifndef EXPTL_INTERNAL_ALGORITHM_HPP
 #define EXPTL_INTERNAL_ALGORITHM_HPP
 
-#include <concepts> // assignable_from
+#include <algorithm> // copy
+#include <concepts>  // assignable_from
 #include <iterator> // cbegin, cend, input_iterator, iterator_traits, output_iterator
 #include <type_traits> // is_same_v
 
@@ -35,8 +36,7 @@ void flatten(In begin, In const end, Out out)
 {
     if constexpr (std::is_same_v<T,
                                  typename std::iterator_traits<In>::value_type>)
-        while (begin != end)
-            *out++ = *begin++;
+        std::copy(begin, end, out);
     else
         while (begin != end)
         {
