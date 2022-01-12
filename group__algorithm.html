@@ -79,12 +79,16 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa4059d6fd51959888c1772dd7e3d85db"><td class="memTemplItemLeft" align="right" valign="top">requires std::assignable_from&lt; T2 &amp;, T &gt; void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__algorithm.html#gaa4059d6fd51959888c1772dd7e3d85db">exptl::flatten</a> (In begin, In const end, Out out)</td></tr>
 <tr class="memdesc:gaa4059d6fd51959888c1772dd7e3d85db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts elements from nested containers.  <a href="group__algorithm.html#gaa4059d6fd51959888c1772dd7e3d85db">More...</a><br /></td></tr>
 <tr class="separator:gaa4059d6fd51959888c1772dd7e3d85db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43479c13c524819aaa46778c0631e03a"><td class="memTemplParams" colspan="2">template&lt;typename T , typename T2  = T, std::ranges::input_range In, std::output_iterator&lt; T2 &gt; Out&gt; </td></tr>
+<tr class="memitem:ga43479c13c524819aaa46778c0631e03a"><td class="memTemplItemLeft" align="right" valign="top">requires std::assignable_from&lt; T2 &amp;, T &gt; void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__algorithm.html#ga43479c13c524819aaa46778c0631e03a">exptl::flatten</a> (In range, Out out)</td></tr>
+<tr class="memdesc:ga43479c13c524819aaa46778c0631e03a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts elements from nested containers.  <a href="group__algorithm.html#ga43479c13c524819aaa46778c0631e03a">More...</a><br /></td></tr>
+<tr class="separator:ga43479c13c524819aaa46778c0631e03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This header provides general algorithms to make your life easier. </p>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaa4059d6fd51959888c1772dd7e3d85db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa4059d6fd51959888c1772dd7e3d85db">&#9670;&nbsp;</a></span>flatten()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa4059d6fd51959888c1772dd7e3d85db">&#9670;&nbsp;</a></span>flatten() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,20 +139,74 @@ template&lt;typename T , typename T2  = T, std::input_iterator In, std::output_i
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="algorithm_2hello_world_8cpp-example.html#a0">algorithm/hello_world.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="algorithm_2hello_world_8cpp-example.html#a0">algorithm/hello_world.cpp</a>, and <a class="el" href="algorithm_2hello_world_ranges_8cpp-example.html#a0">algorithm/hello_world_ranges.cpp</a>.</dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_same_v&lt;T,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                 <span class="keyword">typename</span> std::iterator_traits&lt;In&gt;::value_type&gt;)</div>
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_same_v&lt;T, <span class="keyword">typename</span> std::iter_value_t&lt;In&gt;&gt;)</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::copy(begin, end, out);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    else</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        while (begin != end)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">typename</span> std::iterator_traits&lt;In&gt;::value_type <span class="keyword">const</span> &amp;value{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;              *begin++};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            flatten&lt;T&gt;(std::cbegin(value), std::cend(value), out);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">typename</span> std::iter_reference_t&lt;In&gt; <span class="keyword">const</span> value{*begin++};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            flatten&lt;T&gt;(std::cbegin(value), std::cend(value), out);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ga43479c13c524819aaa46778c0631e03a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43479c13c524819aaa46778c0631e03a">&#9670;&nbsp;</a></span>flatten() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename T2  = T, std::ranges::input_range In, std::output_iterator&lt; T2 &gt; Out&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">requires std::assignable_from&lt;T2 &amp;, T&gt; void exptl::flatten </td>
+          <td>(</td>
+          <td class="paramtype">In&#160;</td>
+          <td class="paramname"><em>range</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Out&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extracts elements from nested containers. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the elements to be extracted. </td></tr>
+    <tr><td class="paramname">In</td><td>Type of the input range. </td></tr>
+    <tr><td class="paramname">Out</td><td>Type of the output iterator.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">range</td><td>Input range of elements to be extracted. </td></tr>
+    <tr><td class="paramname">out</td><td>Output iterator to store the extracted elements. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> constexpr (std::is_same_v&lt;T, <span class="keyword">typename</span> std::iter_value_t&lt;In&gt;&gt;)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        std::ranges::copy(range, out);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    else</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        std::ranges::for_each(</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;          range,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;          [&amp;out](auto const &amp;value)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;          { flatten&lt;T&gt;(std::cbegin(value), std::cend(value), out); });</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
