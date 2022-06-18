@@ -2,10 +2,11 @@
 #define EXPTL_INTERNAL_ALGORITHM_HPP
 
 #include <algorithm> // copy, ranges::copy, ranges::for_each
-#include <concepts>  // assignable_from
+#include <concepts>  // assignable_from, predicate
 #include <iterator> // cbegin, cend, input_iterator, iter_reference_t, iter_value_t, output_iterator
-#include <ranges>      // ranges::input_range
+#include <ranges> // ranges::begin, ranges::borrowed_iterator_t, ranges::end, ranges::forward_range, ranges::input_range, ranges::iterator_t, ranges::range_value_t
 #include <type_traits> // is_same_v
+#include <vector>      // vector
 
 namespace exptl
 {
@@ -81,6 +82,43 @@ void flatten(In range, Out out)
  * This is an example of how to use the flatten() function, using ranges.
  *
  * It outputs "Hello, World!"
+ */
+
+/**
+ * @brief Checks a value against a range of predicates and returns a vector of
+ *        iterators to the satisfied predicates.
+ *
+ * @tparam T The type of the value to be checked.
+ * @tparam In The type of the range of predicates.
+ * @param value The value to be checked.
+ * @param range The range of predicates to apply.
+ * @return Vector of iterators to the satisfied predicates.
+ *         Iterators are @c std::ranges::dangling if @p range does not model
+ *         @c std::ranges::borrowed_range.
+ */
+template <typename T, std::ranges::forward_range In>
+requires std::predicate<std::ranges::range_value_t<In const>, T const &>
+  std::vector<std::ranges::borrowed_iterator_t<In const>> constexpr classify(
+    T const value, In &&range)
+{
+    std::vector<std::ranges::iterator_t<In const>> result;
+
+    for (auto it{std::ranges::begin(range)}; it != std::ranges::end(range);
+         ++it)
+        if ((*it)(value))
+            result.emplace_back(it);
+
+    return result;
+}
+
+/** @example algorithm/classify_fizzbuzz.cpp
+ * This is an example of how to use the classify() function to write FizzBuzz
+ * numbers.
+ */
+
+/** @example algorithm/classify_dangling.cpp
+ * This is an example of how the classify() function returns
+ * @c std::ranges::dangling when @p range is a temporary.
  */
 
 /**
