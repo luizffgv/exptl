@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>exptl: algorithm/hello_world.cpp</title>
+<title>exptl: algorithm/classify_dangling.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,33 +64,21 @@ $(function() {
 
 <div class="header">
   <div class="headertitle">
-<div class="title">algorithm/hello_world.cpp</div>  </div>
+<div class="title">algorithm/classify_dangling.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>This is an example of how to use the <a class="el" href="group__algorithm.html#ga43479c13c524819aaa46778c0631e03a" title="Extracts elements from nested containers.">flatten()</a> function.</p>
-<p>It outputs "Hello, World!"</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;exptl/algorithm&gt;</span> <span class="comment">// flatten</span></div>
-<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span>        <span class="comment">// cout</span></div>
-<div class="line"><span class="preprocessor">#include &lt;iterator&gt;</span>        <span class="comment">// cbegin, cend, ostream_iterator</span></div>
-<div class="line"><span class="preprocessor">#include &lt;vector&gt;</span>          <span class="comment">// vector</span></div>
+<p>This is an example of how the <a class="el" href="group__algorithm.html#ga26aaab7978dbdc307b9a875a1ae75118" title="Checks a value against a range of predicates and returns a vector of iterators to the satisfied predi...">classify()</a> function returns <code>std::ranges::dangling</code> when <code>range</code> is a temporary.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;exptl/algorithm&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;ranges&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">using</span> <a name="a0"></a><a class="code" href="group__algorithm.html#gaa4059d6fd51959888c1772dd7e3d85db">exptl::flatten</a>;</div>
-<div class="line"><span class="keyword">using</span> std::cbegin;</div>
-<div class="line"><span class="keyword">using</span> std::cend;</div>
-<div class="line"><span class="keyword">using</span> std::cout;</div>
-<div class="line"><span class="keyword">using</span> std::ostream_iterator;</div>
-<div class="line"><span class="keyword">using</span> std::vector;</div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main()</div>
-<div class="line">{</div>
-<div class="line">    vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; v[][3]{</div>
-<div class="line">      {{}, {{{72}}}, {{{101, 108}}}},</div>
-<div class="line">      {{{{108, 111}, {44, 32, 87}}}, {{{111}}, {{114}}, {{108}}}, {{{100}}}},</div>
-<div class="line">      {{{{33}, {10}}}}};</div>
-<div class="line"> </div>
-<div class="line">    flatten&lt;int&gt;(std::cbegin(v), std::cend(v), ostream_iterator&lt;char&gt;(cout));</div>
-<div class="line">}</div>
-<div class="ttc" id="agroup__algorithm_html_gaa4059d6fd51959888c1772dd7e3d85db"><div class="ttname"><a href="group__algorithm.html#gaa4059d6fd51959888c1772dd7e3d85db">exptl::flatten</a></div><div class="ttdeci">requires std::assignable_from&lt; T2 &amp;, T &gt; void flatten(In begin, In const end, Out out)</div><div class="ttdoc">Extracts elements from nested containers.</div><div class="ttdef"><b>Definition:</b> algorithm.hpp:37</div></div>
+<div class="line"><span class="comment">// true</span></div>
+<div class="line">static_assert(</div>
+<div class="line">  std::is_same_v&lt;std::ranges::range_value_t&lt;decltype(<a name="a0"></a><a class="code" href="group__algorithm.html#ga26aaab7978dbdc307b9a875a1ae75118">exptl::classify</a>(</div>
+<div class="line">                   0, std::array{[](<span class="keywordtype">int</span> v) { <span class="keywordflow">return</span> v; }}))&gt;,</div>
+<div class="line">                 std::ranges::dangling&gt;);</div>
+<div class="ttc" id="agroup__algorithm_html_ga26aaab7978dbdc307b9a875a1ae75118"><div class="ttname"><a href="group__algorithm.html#ga26aaab7978dbdc307b9a875a1ae75118">exptl::classify</a></div><div class="ttdeci">requires std::predicate&lt; std::ranges::range_value_t&lt; In const  &gt;, T const &amp; &gt; constexpr std::vector&lt; std::ranges::borrowed_iterator_t&lt; In const  &gt; &gt; classify(T const value, In &amp;&amp;range)</div><div class="ttdoc">Checks a value against a range of predicates and returns a vector of iterators to the satisfied predi...</div><div class="ttdef"><b>Definition:</b> algorithm.hpp:101</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
